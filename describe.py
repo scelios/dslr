@@ -1,13 +1,10 @@
-# This script will print a description of the dataset.
-# Including: Count Mean Std Min 25% 50% 75% Max 
-
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 import pandas as pd
-from dslr.math import count_, mean_, std_, min_, max_, percentile_
-from dslr.csv import load_csv
+from useful.math import count_, mean_, std_, min_, max_, percentile_
+from useful.csv import load_csv, putNonNumericalToNaN
 def parser():
     parser = argparse.ArgumentParser(
         description="Describe a dataset from a CSV file.",
@@ -21,6 +18,10 @@ def parser():
 
 def describe_dataset(filename):
     dataset = load_csv(filename)
+
+    dataset = putNonNumericalToNaN(dataset)
+
+    
     features = dataset[0]
     dataset = dataset[1:, :]
     print(f'{"":15} |{"Count":>13} |{"Mean":>13} |{"Std":>13} |{"Min":>13} |{"25%":>13} |{"50%":>13} |{"75%":>13} |{"Max":>13}')
@@ -46,16 +47,19 @@ def describe_dataset(filename):
 
 def main():
     args = parser()
-    fichier_csv = args.file
-    if not fichier_csv:
+    file = args.file
+    if not file:
         print("Please enter the filename")
-    elif not fichier_csv.endswith('.csv'):
+    elif not file.endswith('.csv'):
         print("Please enter a csv file")
         return
-    # df = load_csv(fichier_csv)
+    # df = load_csv(file)
     # if df is not np:
     try:
-        describe_dataset(fichier_csv)
+        describe_dataset(file)
+    except KeyboardInterrupt:
+        print("Process interrupted by user.")
+        return
     except Exception as e:
         print(f"Error processing the file: {e}")
         return

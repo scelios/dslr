@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
@@ -41,10 +42,6 @@ def histogram(filename):
     legend = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
     position = find_position(data, legend)
     data = putNonNumericalToNaN(data)
-
-    # X = np.array(data[:, 16], dtype=float)
-    # histogram_plot(X, legend, xLabel=dataset[0, 16], yLabel='Number of student', title=dataset[0, 16], position=position)
-    # return
 
     for i in range (8, len(data[0])):
         X = np.array(data[:, i], dtype=float)

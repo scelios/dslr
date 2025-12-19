@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
@@ -33,12 +34,6 @@ def scatterPlot(filename):
     position = find_position(data, legend)
     data = putNonNumericalToNaN(data)
 
-    # Create scatterPlot
-    # X = np.array(data[:, 7], dtype=float)
-    # Y = np.array(data[:, 9], dtype=float)
-    # legend = ['Grynffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
-    # scatter_plot(X, Y, legend=legend, xlabel=dataset[0, 7], ylabel=dataset[0, 9], position=position)
-    # return
     for i in range (7, len(data[0])):
         for j in range(8, len(data[0])):
             if (i == j):

@@ -4,8 +4,40 @@ import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 import pandas as pd
-from useful.math import count_, mean_, std_, min_, max_, percentile_
 from useful.csv import load_csv, putNonNumericalToNaN
+
+def count_(data):
+    """Return the number of elements in the data array."""
+    return len(data)
+
+def mean_(data):
+    """Return the mean of the data array."""
+    return np.sum(data) / len(data)
+
+def std_(data):
+    """Return the standard deviation of the data array."""
+    mean = np.sum(data) / len(data)
+    variance = np.sum((data - mean) ** 2) / len(data)
+    return np.sqrt(variance)
+
+def min_(data):
+    """Return the minimum value in the data array."""
+    return np.min(data)
+
+def max_(data):
+    """Return the maximum value in the data array."""
+    return np.max(data)
+
+def percentile_(data, p):
+    """Return the percentile value of the data array."""
+    sorted_data = np.sort(data)
+    index = (p / 100) * (len(sorted_data) - 1)
+    lower_index = int(np.floor(index))
+    upper_index = int(np.ceil(index))
+    if lower_index == upper_index:
+        return sorted_data[lower_index]
+    return sorted_data[lower_index] + (index - lower_index) * (sorted_data[upper_index] - sorted_data[lower_index])
+
 def parser():
     parser = argparse.ArgumentParser(
         description="Describe a dataset from a CSV file.",
